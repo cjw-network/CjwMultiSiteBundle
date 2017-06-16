@@ -1,0 +1,6 @@
+# This file allows for globally overriding settings
+parameters:
+    database_user: root
+    database_password: root
+
+    param.from.globaloverride: true

@@ -1,0 +1,20 @@
+{
+  "name": "cjw-network/multisite-bundle",
+  "license": "GPL-2.0",
+  "description": "CjwMultiSiteBundle allows multiple fully independant sites within a single eZ Platform installation",
+  "authors": [
+    {
+      "name": "CJW Network",
+      "homepage": "http://www.cjw-network.com"
+    }
+  ],
+  "require": {
+    "ezsystems/ezpublish-kernel": "^6.0",
+    "ezsystems/legacy-bridge": "^1.2",
+    "ezsystems/ezplatform-xmltext-fieldtype": "^1.2"
+  },
+  "autoload": {
+    "psr-4": {"Cjw\\MultiSiteBundle\\": ""}
+  }
+
+}

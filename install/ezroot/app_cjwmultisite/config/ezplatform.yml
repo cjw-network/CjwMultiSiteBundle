@@ -1,0 +1,8 @@
+ezpublish:
+    # Repositories configuration, setup default repository to support solr if enabled
+    repositories:
+        default:
+            storage: ~
+            search:
+                engine: "%search_engine%"
+                connection: default

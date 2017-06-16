@@ -1,0 +1,7 @@
+# Define the SiteBundles mananged by CjwMultiSiteBundle
+# see MultiSiteBundle/Resources/doc/conventions.md for naming conventions
+
+cjwmultisite:
+    active_site_bundles:
+        - Webmanufaktur/SiteMetzgerstuebliBundle
+        - Webmanufaktur/SiteKhfBundle
