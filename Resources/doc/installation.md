@@ -1,12 +1,30 @@
 # CjwMultiSiteBundle Installation
 
-Currently there is no composer based installation. Please install CjwMultiSiteBundle manually as follows.
+## Installation
 
-## Manual Installation
+### Prerequisites
 
-### Download and install files
+CjwMultiSiteBundle requires eZ Platform with LegacyBridge installed. Currently, https://github.com/emodric/ezplatform-legacy provides the easiest installation. Please test the installation before proceeding.
 
-Download the files and install them as `src/Cjw/MulitSiteBundle` folder within your eZ platform installation.
+We strongly recommend (and assume) that https://github.com/netgen/NetgenAdminUIBundle to be installed. Please follow the installation instructions closely and test the installation before proceeding.
+
+### Add CjwMultiSiteBundle to your composer requirements
+
+Add these lines to the composer.json file in your eZ Platform root directory:
+
+```yaml
+"lolautruche/ez-core-extra-bundle": "2.0 as 1.1",
+"netgen/admin-ui-bundle": "^2.0",
+"cjw-network/multisite-bundle": "^2.0"
+```
+
+Note that we need to camouflage version `2.0` of the `EzCoreExtraBundle` as `1.1` to satisfy the requirements of the Netgen AdminUI bundle which aims at compatibility with 2014.11/5.4
+
+After this, update your installation to have CjwMultiSiteBundle installed.
+
+```bash
+$ php -d memory-limit=-1 composer.phar update
+```
 
 ### Run the installation script
 
