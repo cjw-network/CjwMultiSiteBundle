@@ -36,7 +36,7 @@ We strongly recommend (and assume) that https://github.com/netgen/NetgenAdminUIB
 
 ## Installation
 
-Currently there is no composer based installation. Download the files and install them as `src/Cjw/MulitSiteBundle` folder within your eZ platform installation. See [Resources/doc/installation.md](Resources/doc/installation.md) for further instructions.
+CjwMultiSiteBundle can be installed via `composer`. See [Resources/doc/installation.md](Resources/doc/installation.md) for instructions. Note that some manual tweaks are necessary.
 
 ## Documentation
 
