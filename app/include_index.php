@@ -7,7 +7,6 @@
  * @version   //autogentag//
  * @filesource
  */
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Debug\Debug;
 
@@ -40,7 +39,7 @@ if ($loaderFile = getenv('SYMFONY_CLASSLOADER_FILE')) {
 
 // Begin Site Matching
 
-require_once $ezrootDir . '/vendor/cjw-network/multisite-bundle/app/CjwMultiSiteKernelMatcher.php';
+require_once __DIR__ . '/CjwMultiSiteKernelMatcher.php';
 
 $useSiteCache = true;
 if ($environment == 'dev') {

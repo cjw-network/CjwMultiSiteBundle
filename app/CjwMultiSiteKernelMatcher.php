@@ -242,4 +242,22 @@ class CjwMultiSiteKernelMatcher
 
         return $kernelInfoArray;
     }
+
+    /**
+     * Return sitename from console commandline.
+     *
+     * @param $fullCommandString
+     *
+     * @return bool|string
+     */
+    public function getSiteNameFromCommandLine($commandLine)
+    {
+        $siteName = false;
+        $console = substr($commandLine, strrpos($commandLine, 'console'));
+        if (strlen($console) > strlen('console')) {
+            $siteName = substr($console, strpos($console, '-') + 1);
+        }
+
+        return $siteName;
+    }
 }

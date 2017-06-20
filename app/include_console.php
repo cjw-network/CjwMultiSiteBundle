@@ -11,43 +11,10 @@ use eZ\Bundle\EzPublishCoreBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Debug\Debug;
 
-class IncludeConsole
-{
-    public $siteName;
-    public $fullCommandString;
+require_once __DIR__ . '/CjwMultiSiteKernelMatcher.php';
 
-    /**
-     * returns the full command string
-     * eg. "app/console" or "console".
-     *
-     * @return mixed
-     */
-    public function getFullCommandString()
-    {
-        global $argv;
-
-        return $this->fullCommandString = $argv[0];
-    }
-
-    /**
-     * gets the full command name then returns only the sitename.
-     * eg. gets "php app/console-myawesome-site" from command and returns "myawesome-site".
-     */
-    public function getSiteName()
-    {
-        $this->siteName = false;
-        $fullCommandString = $this->getFullCommandString();
-        $console = substr( $fullCommandString, strrpos($fullCommandString, 'console'));
-        if (strlen($console)>strlen('console')) {
-            $this->siteName = substr($console, strrpos($console, '-') + 1);
-        }
-
-        return $this->siteName;
-    }
-}
-
-$console = new IncludeConsole();
-$siteName = $console->getSiteName();
+$siteMatcher = new CjwMultiSiteKernelMatcher();
+$siteName = $siteMatcher->getSiteNameFromCommandLine($argv[0]);
 
 //echo "This is the sitename: \n".$siteName."\n";
 
@@ -85,7 +52,7 @@ if ($debug) {
     Debug::enable();
 }
 
-require_once $ezrootDir . '/vendor/cjw-network/multisite-bundle/app/CjwMultiSiteKernelMatcher.php';
+require_once __DIR__ . '/CjwMultiSiteKernelMatcher.php';
 
 // force cache regeneration when using console
 $cjwMulitSiteKernelMatcher = new CjwMultiSiteKernelMatcher(true);

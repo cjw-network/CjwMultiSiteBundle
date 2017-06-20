@@ -7,8 +7,8 @@ You need to following some conventions for CjwMultiSiteBundle to work out of the
 ```
 src/
     Company/
-        SiteDemoOneBundle
-        SiteDemoTwoBundle
+        SiteDemoBundle
+        SiteProjectNameBundle
 ```
 
 ## Bundle Names
@@ -21,8 +21,8 @@ The site name defines not only the bundle's kernel names, but also the name of a
 
 The site name is a single capitalized word, or a CamelCase combination of several words.
 
-| Site Name   | Extension         | Kernel                       | LogDir                             | CacheDir                           |
-| ----------- | ----------------- | ---------------------------- | ---------------------------------- | ---------------------------------- |
-| Demo        | site_demo         | CompanySiteDemoKernel        | web/var/site_demo/log_ezp         | web/var/site_demo/cache_ezp       |
-| ProjectName | site_project-name | CompanySiteProjectNameKernel | web/var/site_project-name/log_ezp | web/var/site_project-name/log_ezp |
+| Bundle Name           | Kernel                       | Console Sitename | Legacy Extension  | LogDir                       | CacheDir                     |
+| --------------------- | ---------------------------- | ---------------- | ----------------- | ---------------------------- | ---------------------------- |
+| SiteDemoBundle        | CompanySiteDemoKernel        | demo             | site_demo         | web/var/demo/log_ezp         | web/var/demo/cache_ezp       |
+| SiteProjectNameBundle | CompanySiteProjectNameKernel | project-name     | site_project-name | web/var/project-name/log_ezp | web/var/project-name/log_ezp |
 

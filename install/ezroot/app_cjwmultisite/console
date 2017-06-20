@@ -13,4 +13,5 @@
 // read http://symfony.com/doc/current/book/installation.html#configuration-and-setup for more information
 //umask(0000);
 
-require_once __DIR__ . "/../vendor/cjw-network/multisite-bundle/app/include_console.php";
+// load console from CjwMultiSiteBundle
+require_once __DIR__ . '/../vendor/cjw-network/multisite-bundle/app/include_console.php';
