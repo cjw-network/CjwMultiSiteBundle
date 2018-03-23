@@ -9,9 +9,9 @@
     }
   ],
   "require": {
-    "ezsystems/ezpublish-kernel": "^6.0",
-    "ezsystems/legacy-bridge": "^1.2",
-    "ezsystems/ezplatform-xmltext-fieldtype": "^1.2"
+    "ezsystems/ezpublish-kernel": "^7.0",
+    "ezsystems/legacy-bridge": "^2.0",
+    "ezsystems/ezplatform-xmltext-fieldtype": "^1.5"
   },
   "autoload": {
     "psr-4": {"Cjw\\MultiSiteBundle\\": ""}
