@@ -1,12 +1,12 @@
 # This file is auto-generated during the composer install
 parameters:
-    secret: ThisEzPlatformTokenIsNotSoSecretChangeIt
-    locale_fallback: de
-    database_driver: pdo_mysql
-    database_host: localhost
-    database_port: null
-    database_name: ezplatform
-    database_user: root
-    database_password: root
+    env(SYMFONY_SECRET): ThisEzPlatformTokenIsNotSoSecretChangeIt
+    env(DATABASE_DRIVER): pdo_mysql
+    env(DATABASE_HOST): localhost
+    env(DATABASE_PORT): null
+    env(DATABASE_NAME): ezplatform
+    env(DATABASE_USER): root
+    env(DATABASE_PASSWORD): root
 
     param.from.global: true
+    ezdesign.phpstorm.enabled: false

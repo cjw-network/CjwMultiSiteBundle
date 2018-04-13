@@ -9,6 +9,7 @@
  */
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Cache\Simple\FilesystemCache;
 
 /**
  * Class CjwMultiSiteKernelMatcher.
@@ -19,9 +20,8 @@ use Symfony\Component\Yaml\Exception\ParseException;
  */
 class CjwMultiSiteKernelMatcher
 {
-    const STASH_NS = 'cjwmultisite';
-    const STASH_KEY = 'config_array';
-    const STASH_TTL = 60;
+    const CACHE_KEY = 'cjw.multisite.config';
+    const CACHE_TTL = 60;
 
     protected $activeSiteBundles = null;
     protected $configArray = null;
@@ -55,25 +55,16 @@ class CjwMultiSiteKernelMatcher
      */
     public function loadCjwPublishConfig($forceGenerateCache = false)
     {
-        if ($this->configArray === null) {
-            if ($this->useCache === true) {
-                $driver = new Stash\Driver\FileSystem();
-                $pool = new Stash\Pool($driver);
-                $pool->setNamespace($this::STASH_NS);
-                $item = $pool->getItem($this::STASH_KEY);
-                $data = $item->get();
-
-                if ($item->isMiss() || $forceGenerateCache) {
-                    $item->lock();
-                    $data = $this->parseConfig();
-                    $item->set($data);
-                    $item->expiresAfter($this::STASH_TTL);
-                    $pool->save($item);
-                }
-                $this->configArray = $data;
-            } else {
+        if ($this->useCache) {
+            $cache = new FilesystemCache();
+            if (!$cache->has(self::CACHE_KEY) || $forceGenerateCache) {
                 $this->configArray = $this->parseConfig();
+                $cache->set(self::CACHE_KEY, $this->configArray,self::CACHE_TTL);
+            } else {
+                $this->configArray = $cache->get(self::CACHE_KEY);
             }
+        } else {
+            $this->configArray = $this->parseConfig();
         }
 
         return $this->configArray;

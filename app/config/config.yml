@@ -4,11 +4,11 @@
 parameters:
 
     # ez platform/publish kernel locations, relative to our kernel
-    ezpublish.kernel.root_dir: "%kernel.root_dir%/../../../../vendor/ezsystems/ezpublish-kernel"
-    ezpublish_legacy.root_dir: "%kernel.root_dir%/../../../../ezpublish_legacy"
+    ezpublish.kernel.root_dir: '%kernel.project_dir%/vendor/ezsystems/ezpublish-kernel'
+    ezpublish_legacy.root_dir: '%kernel.project_dir%/ezpublish_legacy'
 
     # webroot location, relative to our kernel
-    webroot_dir: %kernel.root_dir%/../../../../web
+    webroot_dir: '%kernel.project_dir%/web'
 
     # fixes for ezxml fieldtype
     ezpublish.fieldType.ezxmltext.converter.html5.class: Cjw\MultiSiteBundle\FieldType\XmlText\Converter\Html5
@@ -16,7 +16,7 @@ parameters:
     # needed for the to use of CrossDomainRouter
     ezpublish.fieldType.ezxmltext.converter.ezLinkToHtml5.class: Cjw\MultiSiteBundle\FieldType\XmlText\Converter\EzLinkToHtml5
 
-    ezpublish.fieldType.ezxmltext.converter.html5.resources: "%kernel.root_dir%/../../../../vendor/ezsystems/ezplatform-xmltext-fieldtype/lib/FieldType/XmlText/Input/Resources/stylesheets/eZXml2Html5.xsl"
+    ezpublish.fieldType.ezxmltext.converter.html5.resources: '%kernel.project_dir%/vendor/ezsystems/ezplatform-xmltext-fieldtype/lib/FieldType/XmlText/Input/Resources/stylesheets/eZXml2Html5.xsl'
 
     # enable this for testing
     # ezpublish.fieldType.ezxmltext.converter.embedToHtml5.class: Cjw\MultiSiteBundle\FieldType\XmlText\Converter\EmbedToHtml5
@@ -28,16 +28,16 @@ parameters:
 
 ez_publish_legacy:
     enabled:  true
-    root_dir: "%kernel.root_dir%/../../../../ezpublish_legacy"
+    root_dir: '%kernel.project_dir%/ezpublish_legacy'
 
 # Adjust Assetic paths
 
 assetic:
-    read_from: "%kernel.root_dir%/../../../../web"
-    write_to: "%kernel.root_dir%/../../../../web"
+    read_from: '%kernel.project_dir%/web'
+    write_to: '%kernel.project_dir%/web'
 
 # Add eZ Publish Legacy to Twig paths
 
 twig:
     paths:
-        "%kernel.root_dir%/../../../../ezpublish_legacy": "layout_base"
+        '%kernel.project_dir%/ezpublish_legacy': 'layout_base'

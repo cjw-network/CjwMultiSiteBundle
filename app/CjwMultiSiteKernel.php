@@ -7,11 +7,10 @@
  * @version   //autogentag//
  * @filesource
  */
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
-require_once __DIR__ . '/../../../../app/AppKernel.php';
-
-class CjwMultiSiteKernel extends AppKernel
+class CjwMultiSiteKernel extends Kernel
 {
     // test-project
     protected $siteProjectName = null;
@@ -22,17 +21,17 @@ class CjwMultiSiteKernel extends AppKernel
     protected $siteKernelBundleName = null;
 
     protected $siteEzPublishLegacyRootDir = null;
-    protected $siteCacheDir = null;
-    protected $siteLogDir = null;
+    //protected $siteCacheDir = null;
+    //protected $siteLogDir = null;
 
-    protected $siteSeparateVarCacheDir = false;
-    protected $siteSeparateVarLogDir = false;
+    //protected $siteSeparateVarCacheDir = false;
+    //protected $siteSeparateVarLogDir = false;
 
     /**
      * Constructor.
      *
-     * @param string  $environment The environment
-     * @param bool $debug       Whether to enable debugging or not
+     * @param string $environment The environment
+     * @param bool $debug Whether to enable debugging or not
      *
      * @api
      */
@@ -47,23 +46,7 @@ class CjwMultiSiteKernel extends AppKernel
         $this->siteKernelClassName = $this->getSiteKernelClassName();
         $this->siteKernelBundleName = $this->getSiteKernelBundleName();
 
-        // .../web
-        $webDir = getcwd();
-        /*
-        // webmode
-        if ( isset( $_SERVER['HTTP_HOST'] ) )
-        {
-            $this->siteEzPublishLegacyRootDir = "{$webDir}/../ezpublish_legacy";
-        }
-        else
-        {
-            // cli
-            // php ./app_cjwmultisite/console ....
-            $this->siteEzPublishLegacyRootDir = "{$webDir}/ezpublish_legacy";
-        }
-        */
-        $webDir = preg_replace('/\/web$/', '', $webDir);
-        $this->siteEzPublishLegacyRootDir = "{$webDir}/ezpublish_legacy";
+        $this->siteEzPublishLegacyRootDir = "{$this->getProjectDir()}/ezpublish_legacy";
         //$this->siteSeparateVarCacheDir = false;
         //$this->siteSeparateVarLogDir = false;
 
@@ -113,9 +96,9 @@ class CjwMultiSiteKernel extends AppKernel
      */
     public function registerBundles()
     {
-        $bundles = parent::registerBundles();
+        $bundles = [];
 
-        $bundles[] = new Cjw\MultiSiteBundle\CjwMultiSiteBundle();
+        //$bundles[] = new Cjw\MultiSiteBundle\CjwMultiSiteBundle();
 
         return $bundles;
     }
@@ -129,29 +112,8 @@ class CjwMultiSiteKernel extends AppKernel
      */
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $environment = $this->getEnvironment();
-
-        // first, read global config files
-        $configFileGlobal = $this->rootDir . '/../../../../app_cjwmultisite/config/config_' . $environment . '.yml';
-        if (!is_readable($configFileGlobal)) {
-            throw new RuntimeException("Configuration file '$configFileGlobal' is not readable.");
-        }
-        $loader->load($configFileGlobal);
-
-        // read config files needed for CjwMultiSiteKernel
-        $reflector = new ReflectionClass('CjwMultiSiteKernel');
-        $classFileName = $reflector->getFileName();
-        $dir = substr($classFileName, 0, strrpos($classFileName, '/'));
-        $loader->load($dir . '/config/config_' . $environment . '.yml');
-
-        // read bundle config files
-        parent::registerContainerConfiguration($loader);
-
-        // finally, allow for global overrides of configs
-        $configFileGlobal = $this->rootDir . '/../../../../app_cjwmultisite/config_override/config_' . $environment . '.yml';
-        if (is_readable($configFileGlobal)) {
-            $loader->load($configFileGlobal);
-        }
+        // Load CjwMultiSiteBundle specific configuration
+        $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
 
     /**
@@ -169,39 +131,35 @@ class CjwMultiSiteKernel extends AppKernel
     }
 
     /**
-     * Define the cache directory.
+     * Gets the cache directory.
      *
-     * @return string
+     * @return string The cache directory
      */
     public function getCacheDir()
     {
-        if (null === $this->siteCacheDir) {
-            $varCacheDir = 'var';
-            if ($this->siteSeparateVarCacheDir) {
-                $varCacheDir = 'var_cache';
-            }
-            $this->siteCacheDir = "{$this->siteEzPublishLegacyRootDir}/{$varCacheDir}/{$this->siteProjectName}/cache_ezp/{$this->environment}";
+        if (!empty($_SERVER['SYMFONY_TMP_DIR'])) {
+            return rtrim(
+                    $_SERVER['SYMFONY_TMP_DIR'],
+                    '/'
+                ).'/var/cache/'.$this->siteProjectName.'/'.$this->getEnvironment();
         }
 
-        return $this->siteCacheDir;
+        return $this->getProjectDir() .'/var/cache/'.$this->siteProjectName.'/'.$this->getEnvironment();
     }
 
+
     /**
-     * Define the log directory.
+     * Gets the log directory.
      *
-     * @return string
+     * @return string The log directory
      */
     public function getLogDir()
     {
-        if (null === $this->siteLogDir) {
-            $varLogDir = 'var';
-            if ($this->siteSeparateVarLogDir) {
-                $varLogDir = 'var_log';
-            }
-            $this->siteLogDir = "{$this->siteEzPublishLegacyRootDir}/{$varLogDir}/{$this->siteProjectName}/log_ezp";
+        if (!empty($_SERVER['SYMFONY_TMP_DIR'])) {
+            return rtrim($_SERVER['SYMFONY_TMP_DIR'], '/').'/var/logs/'.$this->siteProjectName;
         }
 
-        return $this->siteLogDir;
+        return $this->getProjectDir() .'/var/logs/'.$this->siteProjectName;
     }
 
     /**

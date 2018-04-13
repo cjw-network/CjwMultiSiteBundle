@@ -7,23 +7,23 @@ services:
     cjw_multisite.routing.cross_domain_router:
         class: Cjw\MultiSiteBundle\Routing\CrossDomainRouter
         arguments:
-            - @ezpublish.api.repository
-            - @ezpublish.urlalias_generator
-            - @?router.request_context
-            - @?logger
+            - '@ezpublish.api.repository'
+            - '@ezpublish.urlalias_generator'
+            - '@?router.request_context'
+            - '@?logger'
         calls:
-            - [setConfigResolver, [@ezpublish.config.resolver]]
+            - [setConfigResolver, ['@ezpublish.config.resolver']]
         tags:
             - {name: router, priority: 250}
 
     # override ezLinkToHtml5 in order to be able to use our CrossDomainRouter
     ezpublish.fieldType.ezxmltext.converter.ezLinkToHtml5:
-        class: %ezpublish.fieldType.ezxmltext.converter.ezLinkToHtml5.class%
+        class: '%ezpublish.fieldType.ezxmltext.converter.ezLinkToHtml5.class%'
         arguments:
-            - @ezpublish.api.service.location
-            - @ezpublish.api.service.content
-            - @cjw_multisite.routing.cross_domain_router
-            - @?logger
+            - '@ezpublish.api.service.location'
+            - '@ezpublish.api.service.content'
+            - '@cjw_multisite.routing.cross_domain_router'
+            - '@?logger'
         tags:
             - { name: ezpublish.ezxml.converter }
 

@@ -8,5 +8,13 @@
  * @filesource
  */
 
+// server umgebungsvariablen setzen
+// geht nur wenn nicht im webserver bereits gesetzt
+//putenv( "ENVIRONMENT=dev" );
+//putenv( "ENVIRONMENT=prod" );
+//putenv( "USE_APC_CLASSLOADER=1" );
+//putenv( "USE_DEBUGGING=0" );
+//putenv( "USE_HTTP_CACHE=1" );
+
 // load index php from CjwMultiSiteBundle
-require_once __DIR__ . '../vendor/cjw-network/multisite-bundle/app/include_index.php';
+require_once '../vendor/cjw-network/multisite-bundle/app/include_index.php';

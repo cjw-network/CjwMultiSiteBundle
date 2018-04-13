@@ -7,8 +7,15 @@
  * @version //autogentag//
  * @filesource
  */
-require_once __DIR__ . '/../../../../app/AppCache.php';
 
-class CjwMultiSiteCache extends AppCache
+use EzSystems\PlatformHttpCacheBundle\AppCache as PlatformHttpCacheBundleAppCache;
+
+/**
+ * Class CjwMultiSiteCache.
+ *
+ * For easier upgrade do not change this file, as of 2015.01 possible to extend
+ * cleanly via SYMFONY_HTTP_CACHE_CLASS & SYMFONY_CLASSLOADER_FILE env variables!
+ */
+class CjwMultiSiteCache extends PlatformHttpCacheBundleAppCache
 {
 }

@@ -37,12 +37,14 @@ if (isset($argv[1]) && $argv[1] == '--create-symlinks') {
     //    echo "### Using SiteName: $siteName ###\n\n";
 }
 
-$ezrootDir = realpath(__DIR__ . '/../../../..');
+$ezRootDir = __DIR__ . '/../../../..';
 
 set_time_limit(0);
 
 // Use autoload over boostrap here so we don't need to keep the generated files in git
-require_once $ezrootDir . '/app/autoload.php';
+// Ensure UTF-8 is used in string operations
+setlocale(LC_CTYPE, 'C.UTF-8');
+require $ezRootDir . '/vendor/autoload.php';
 
 $input = new ArgvInput();
 $env = $input->getParameterOption(array('--env', '-e'), getenv('SYMFONY_ENV') ?: 'dev');
